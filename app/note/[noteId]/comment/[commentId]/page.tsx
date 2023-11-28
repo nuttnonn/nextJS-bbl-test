@@ -1,4 +1,5 @@
 'use client'
+export const runtime = 'edge';
 
 import { Container } from '@mui/material'
 import Delete from '@/components/Delete'
