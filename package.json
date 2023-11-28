@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/joy": "^5.0.0-beta.15",
     "@mui/material": "^5.14.18",
+    "dotenv": "^16.3.1",
     "next": "14.0.3",
     "next-auth": "^4.24.5",
     "oidc-react": "^3.2.2",

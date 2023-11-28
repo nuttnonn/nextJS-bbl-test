@@ -9,15 +9,15 @@ import { AuthProvider } from 'oidc-react'
 
 const oidcConfig = {
   onSignIn: async (user: any) => {
-    console.log(user);
+    console.log(user)
     window.location.hash = '';
   },
-  authority: 'https://dev-yg.us.auth0.com/authorize',
-  clientId: 'H9F6QG5SzTKMv0tbmgxLj9LjG1EKVllA',
-  responseType: 'code',
-  redirectUri: 'http://localhost:3000/',
-  scope: 'openid profile email offline_access',
-  audience: 'https://dev-yg.us.auth0.com/api/v2/',
+  authority: process.env.NEXT_PUBLIC_OIDC_AUTHORITY,
+  clientId: process.env.NEXT_PUBLIC_OIDC_CLIENT_ID,
+  responseType: process.env.NEXT_PUBLIC_OIDC_RESPONSE_TYPE,
+  redirectUri: process.env.NEXT_PUBLIC_OIDC_REDIRECT_URI,
+  scope: process.env.NEXT_PUBLIC_OIDC_SCOPE,
+  audience: process.env.NEXT_PUBLIC_OIDC_AUDIENCE,
 };
 
 export default function Page({ params }: { params: { noteId: number } }) {
