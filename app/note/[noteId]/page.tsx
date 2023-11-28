@@ -6,12 +6,9 @@ import CommentList from '@/components/CommentList'
 import Create from '@/components/Create'
 import Note from '@/components/Note'
 import { AuthProvider } from 'oidc-react'
+import { useEffect, useState } from 'react'
 
 const oidcConfig = {
-  onSignIn: async (user: any) => {
-    console.log(user)
-    window.location.hash = '';
-  },
   authority: process.env.NEXT_PUBLIC_OIDC_AUTHORITY,
   clientId: process.env.NEXT_PUBLIC_OIDC_CLIENT_ID,
   responseType: process.env.NEXT_PUBLIC_OIDC_RESPONSE_TYPE,
@@ -21,14 +18,24 @@ const oidcConfig = {
 };
 
 export default function Page({ params }: { params: { noteId: number } }) {
-  return (
-    <AuthProvider {...oidcConfig}>
-      <Container>
-        <Note noteId={params.noteId} />
-        <Delete title="Delete note" url="https://ctsandbox.innohub.app/notes/" id={params.noteId} />
-        <CommentList noteId={params.noteId} />
-        <Create title="comment" url="https://ctsandbox.innohub.app/comments" noteId={params.noteId} />
-      </Container>
-    </AuthProvider>
-  )
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (isClient) {
+    return (
+      <AuthProvider {...oidcConfig}>
+        <Container>
+          <Note noteId={params.noteId} />
+          <Delete title="Delete note" url="https://ctsandbox.innohub.app/notes/" id={params.noteId} />
+          <CommentList noteId={params.noteId} />
+          <Create title="comment" url="https://ctsandbox.innohub.app/comments" noteId={params.noteId} />
+        </Container>
+      </AuthProvider>
+    )
+  } else {
+    return <h1>wait</h1>
+  }
 }
