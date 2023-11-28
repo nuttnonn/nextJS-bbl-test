@@ -1,13 +1,13 @@
 'use client'
 
-import Home from '@/components/Home'
-import Login from '@/components/Login'
 import { Container } from '@mui/material'
+import Delete from '@/components/Delete'
+import Comment from '@/components/Comment'
 import { AuthProvider } from 'oidc-react'
 
 const oidcConfig = {
   onSignIn: async (user: any) => {
-    console.log(user)
+    console.log(user);
     window.location.hash = '';
   },
   authority: 'https://dev-yg.us.auth0.com/authorize',
@@ -18,12 +18,12 @@ const oidcConfig = {
   audience: 'https://dev-yg.us.auth0.com/api/v2/',
 };
 
-export default function App() {
+export default function Page({ params }: { params: { commentId: number } }) {
   return (
     <AuthProvider {...oidcConfig}>
-      <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', bgcolor: '#0a0908', height: '100dvh'}}>
-        <Login />
-        <Home />
+      <Container>
+        <Comment commentId={params.commentId} />
+        <Delete title="Delete comment" url="https://ctsandbox.innohub.app/comments/" id={params.commentId} comment />
       </Container>
     </AuthProvider>
   )
