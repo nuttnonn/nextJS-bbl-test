@@ -1,5 +1,7 @@
-import React, { FC } from 'react'
-import { Button } from '@mui/material'
+'use client'
+
+import React, { FC, useState } from 'react'
+import { Box, Button, Modal, Stack, Typography } from '@mui/material'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from 'oidc-react'
 
@@ -7,6 +9,7 @@ const Delete: FC<{ title:string, url:string, id:number, comment?:boolean }> = ({
   const auth = useAuth();
   const router = useRouter();
   const notePath = usePathname().split('/comment')[0];
+
   const handleDelete = async () => {
     if (auth && auth.userData?.id_token) {
       const response = await fetch(`${url}${id}`, {
@@ -18,7 +21,7 @@ const Delete: FC<{ title:string, url:string, id:number, comment?:boolean }> = ({
       });
 
       if (response.ok) {
-        alert(`Deleted`)
+        alert(`Successfully deleted`)
         comment ? router.push(`${notePath}`) : router.push('/')
       } else {
         console.error('Failed to add note');
@@ -27,9 +30,11 @@ const Delete: FC<{ title:string, url:string, id:number, comment?:boolean }> = ({
   }
 
   return (
-    <Button onClick={handleDelete}>
-      {title}
-    </Button>
+    <Box>
+      <Button variant='outlined' color='error' onClick={handleDelete}>
+        {title}
+      </Button>
+    </Box>
   )
 }
 

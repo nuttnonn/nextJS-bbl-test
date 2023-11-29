@@ -1,13 +1,14 @@
 'use client'
+import { Container, Stack, Typography } from '@mui/material'
+
 export const runtime = 'edge';
 
-import { Container } from '@mui/material'
 import Delete from '@/components/Delete'
 import CommentList from '@/components/CommentList'
 import Create from '@/components/Create'
 import Note from '@/components/Note'
 import { AuthProvider } from 'oidc-react'
-import { useEffect, useState } from 'react'
+import React from 'react'
 
 const oidcConfig = {
   authority: process.env.NEXT_PUBLIC_OIDC_AUTHORITY,
@@ -19,24 +20,40 @@ const oidcConfig = {
 };
 
 export default function Page({ params }: { params: { noteId: number } }) {
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  if (isClient) {
-    return (
-      <AuthProvider {...oidcConfig}>
-        <Container>
+  return (
+    <AuthProvider {...oidcConfig}>
+      <div className="py-10">
+        <Container sx={{width:{xs:'98%', sm:'90%'}, display: 'flex', flexDirection: 'column', gap: 2, bgcolor: '#dee2e6', paddingY: 4, marginY: 3, borderRadius: 4}}>
           <Note noteId={params.noteId} />
-          <Delete title="Delete note" url="https://ctsandbox.innohub.app/notes/" id={params.noteId} />
-          <CommentList noteId={params.noteId} />
-          <Create title="comment" url="https://ctsandbox.innohub.app/comments" noteId={params.noteId} />
+          <Container sx={{border:1, borderRadius:3, borderColor:'#adb5bd99', paddingX:{xs:0, sm:4}, paddingY:4}}>
+            <Stack justifyContent='space-between' alignItems='center' sx={{ flexDirection:{xs:'column', sm:'row'}, marginBottom:{xs:1, sm:2} }}>
+              <Typography variant='subtitle1' fontWeight='bold' style={{color:'#343a40'}}>Comments of this note:</Typography>
+              <Create title="comment" url="https://ctsandbox.innohub.app/comments" noteId={params.noteId} />
+            </Stack>
+            <CommentList noteId={params.noteId} />
+          </Container>
         </Container>
-      </AuthProvider>
-    )
-  } else {
-    return <h1>wait</h1>
-  }
+      </div>
+    </AuthProvider>
+  )
+
+  // const [isClient, setIsClient] = useState(false)
+  // useEffect(() => {
+  //   setIsClient(true)
+  // }, [])
+  //
+  // if (isClient) {
+  //   return (
+  //     <AuthProvider {...oidcConfig}>
+  //       <Container>
+  //         <Note noteId={params.noteId} />
+  //         <Delete title="Delete note" url="https://ctsandbox.innohub.app/notes/" id={params.noteId} />
+  //         <CommentList noteId={params.noteId} />
+  //         <Create title="comment" url="https://ctsandbox.innohub.app/comments" noteId={params.noteId} />
+  //       </Container>
+  //     </AuthProvider>
+  //   )
+  // } else {
+  //   return <h1>wait</h1>
+  // }
 }

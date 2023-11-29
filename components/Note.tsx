@@ -1,6 +1,9 @@
+'use client'
+
 import React, { FC, useEffect, useState } from 'react'
-import { Container } from '@mui/material'
+import { Box, Container, Stack, Typography } from '@mui/material'
 import { useAuth } from 'oidc-react'
+import Delete from '@/components/Delete'
 
 interface Note {
   id: number;
@@ -29,16 +32,20 @@ const Note: FC<{ noteId:number }> = ({ noteId}) => {
   }, [auth]);
 
   return (
-    <Container>
+    <Box>
       {note ? (
-        <div>
-          <h1>{note.title}</h1>
-          <p>{note.body}</p>
-        </div>
+        <Stack direction='column'>
+          <Stack justifyContent='space-between' alignItems='center' sx={{ flexDirection:{xs:'column', sm:'row'}, marginBottom:{xs:1, sm:2} }}>
+            <Typography variant='h6' style={{color:'#8b8c89'}}>NOTE {note.id}</Typography>
+            <Delete title="Delete note" url="https://ctsandbox.innohub.app/notes/" id={note.id} />
+          </Stack>
+          <Typography variant='h5' marginBottom={1}>{note.title}</Typography>
+          <Typography variant='body2'>{note.body}</Typography>
+        </Stack>
       ) : (
-        <p>Note {noteId} not found</p>
+        <Typography>Note {noteId} not found</Typography>
       )}
-    </Container>
+    </Box>
   );
 };
 

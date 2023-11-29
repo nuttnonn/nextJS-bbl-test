@@ -1,5 +1,6 @@
+'use client'
 import React, { FC, useEffect, useState } from 'react'
-import { Container } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import { useAuth } from 'oidc-react'
 
 interface Comment {
@@ -29,13 +30,13 @@ const Note: FC<{ commentId:number }> = ({ commentId}) => {
   }, [auth]);
 
   return (
-    <Container>
+    <Box>
       {comment ? (
-        <p>{comment.body}</p>
+        <Typography variant='body1'>{comment.body}</Typography>
       ) : (
-        <p>Comment {commentId} not found</p>
+        <Typography variant='body1'>Comment {commentId} not found</Typography>
       )}
-    </Container>
+    </Box>
   );
 };
 

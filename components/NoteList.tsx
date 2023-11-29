@@ -1,5 +1,7 @@
+'use client'
+
 import React, { FC, useEffect, useState } from 'react'
-import { Container, Paper, Typography } from '@mui/material'
+import { Box, Container, Divider, Paper, Stack, Typography } from '@mui/material'
 import Link from 'next/link'
 import { useAuth } from 'oidc-react'
 
@@ -39,19 +41,21 @@ const NoteList: FC = () => {
   }, [auth]);
 
   return (
-    <Container sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
+    <Stack gap={2}>
       {notes.length > 0 ? (
         notes.map((note) => (
           <Link href={`/note/${note.id}`} key={note.id}>
-            <Paper elevation={6}>
-              <Typography>{note.title}</Typography>
+            <Paper elevation={4} sx={{display:'flex', flexDirection:'column', alignItems:'start', paddingX:1}}>
+              <Typography variant="caption" style={{color:'#9da399'}} sx={{marginLeft:2, marginTop:1}}>NOTE {note.id}</Typography>
+              <Divider variant="middle" flexItem />
+              <Typography variant="subtitle1" sx={{marginLeft:2, marginY:1}}>{note.title}</Typography>
             </Paper>
           </Link>
         ))
       ) : (
         <p>No notes available</p>
       )}
-    </Container>
+    </Stack>
   );
 };
 

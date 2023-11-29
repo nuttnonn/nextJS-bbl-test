@@ -4,7 +4,6 @@ import Home from '@/components/Home'
 import Login from '@/components/Login'
 import { Button, Container } from '@mui/material'
 import { AuthProvider } from 'oidc-react'
-import { useEffect, useState } from 'react'
 
 const oidcConfig = {
   authority: process.env.NEXT_PUBLIC_OIDC_AUTHORITY,
@@ -16,22 +15,30 @@ const oidcConfig = {
 };
 
 export default function App() {
-  const [isClient, setIsClient] = useState(false)
+  return (
+    <AuthProvider {...oidcConfig}>
+      <div className="py-10">
+        <Home />
+        <Login />
+      </div>
+    </AuthProvider>
+  )
 
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  if (isClient) {
-    return (
-      <AuthProvider {...oidcConfig}>
-        <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', bgcolor: '#0a0908', height: '100dvh'}}>
-          <Login />
-          <Home />
-        </Container>
-      </AuthProvider>
-    )
-  } else {
-    return <h1>wait</h1>
-  }
+  // const [isClient, setIsClient] = useState(false)
+  // useEffect(() => {
+  //   setIsClient(true)
+  // }, [])
+  //
+  // if (isClient) {
+  //   return (
+  //     <AuthProvider {...oidcConfig}>
+  //       <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', bgcolor: '#0a0908', height: '100dvh'}}>
+  //         <Login />
+  //         <Home />
+  //       </Container>
+  //     </AuthProvider>
+  //   )
+  // } else {
+  //   return <h1>wait</h1>
+  // }
 }
