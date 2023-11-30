@@ -1,10 +1,9 @@
 'use client'
 
 import React, { FC, useEffect, useState } from 'react'
-import Link from 'next/link'
 import {
   Box,
-  Container, Divider,
+  Divider,
   List,
   ListItem,
   ListItemButton,
@@ -56,9 +55,9 @@ const CommentList: FC<{ noteId:number }> = ({ noteId }) => {
     <Box>
       {comments.length > 0 ? (
         comments.map((comment) => (
-          <List>
+          <List key={noteId}>
             <ListItem disablePadding>
-              <ListItemButton key={comment.id} onClick={() => {router.push(`/note/${noteId}/comment/${comment.id}`)}}>
+              <ListItemButton onClick={() => {router.push(`/note/${noteId}/comment/${comment.id}`)}}>
                 <ListItemIcon>
                   <KeyboardArrowRightIcon />
                 </ListItemIcon>

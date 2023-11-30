@@ -1,6 +1,6 @@
 'use client'
 import React, { FC, useEffect, useState } from 'react'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useAuth } from 'oidc-react'
 
 interface Comment {
@@ -10,7 +10,7 @@ interface Comment {
   body: string;
 }
 
-const Note: FC<{ commentId:number }> = ({ commentId}) => {
+const Comment: FC<{ commentId?:number }> = ({ commentId}) => {
   const auth = useAuth();
   const [comment, setComment] = useState<Comment | null>(null);
 
@@ -40,4 +40,4 @@ const Note: FC<{ commentId:number }> = ({ commentId}) => {
   );
 };
 
-export default Note;
+export default Comment;

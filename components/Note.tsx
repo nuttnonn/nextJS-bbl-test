@@ -1,7 +1,7 @@
 'use client'
 
 import React, { FC, useEffect, useState } from 'react'
-import { Box, Container, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { useAuth } from 'oidc-react'
 import Delete from '@/components/Delete'
 
@@ -12,7 +12,7 @@ interface Note {
   body: string;
 }
 
-const Note: FC<{ noteId:number }> = ({ noteId}) => {
+const Note: FC<{ noteId?:number }> = ({ noteId}) => {
   const auth = useAuth();
   const [note, setNote] = useState<Note | null>(null);
 

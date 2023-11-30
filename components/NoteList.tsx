@@ -1,7 +1,7 @@
 'use client'
 
 import React, { FC, useEffect, useState } from 'react'
-import { Box, Container, Divider, Paper, Stack, Typography } from '@mui/material'
+import { Box, Divider, Paper, Stack, Typography } from '@mui/material'
 import Link from 'next/link'
 import { useAuth } from 'oidc-react'
 

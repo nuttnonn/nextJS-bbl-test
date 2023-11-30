@@ -4,6 +4,8 @@ import './globals.css'
 import React from 'react'
 import NavBar from '@/components/NavBar'
 
+export const runtime = 'edge'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {

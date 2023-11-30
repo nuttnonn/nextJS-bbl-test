@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react';
 import { useAuth } from 'oidc-react';
 import { Alert, Snackbar } from '@mui/material';

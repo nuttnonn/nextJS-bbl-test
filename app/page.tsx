@@ -1,8 +1,9 @@
 'use client'
 
+export const runtime = 'edge'
+
 import Home from '@/components/Home'
 import Login from '@/components/Login'
-import { Button, Container } from '@mui/material'
 import { AuthProvider } from 'oidc-react'
 
 const oidcConfig = {

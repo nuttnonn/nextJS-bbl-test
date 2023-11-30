@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-
 export const runtime = 'edge';
 
 import { Container, Stack, Typography } from '@mui/material'
